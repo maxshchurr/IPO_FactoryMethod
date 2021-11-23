@@ -1,0 +1,7 @@
+C:\Users\Lenovo 320\Desktop\3Course\IPO\FactoryMethod\FactoryMethod\obj\Debug\FactoryMethod.csprojAssemblyReference.cache
+C:\Users\Lenovo 320\Desktop\3Course\IPO\FactoryMethod\FactoryMethod\obj\Debug\FactoryMethod.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo 320\Desktop\3Course\IPO\FactoryMethod\FactoryMethod\bin\Debug\FactoryMethod.exe.config
+C:\Users\Lenovo 320\Desktop\3Course\IPO\FactoryMethod\FactoryMethod\bin\Debug\FactoryMethod.exe
+C:\Users\Lenovo 320\Desktop\3Course\IPO\FactoryMethod\FactoryMethod\bin\Debug\FactoryMethod.pdb
+C:\Users\Lenovo 320\Desktop\3Course\IPO\FactoryMethod\FactoryMethod\obj\Debug\FactoryMethod.exe
+C:\Users\Lenovo 320\Desktop\3Course\IPO\FactoryMethod\FactoryMethod\obj\Debug\FactoryMethod.pdb
