@@ -8,98 +8,98 @@ namespace FactoryMethod
 {
     class Program
     {
-        interface ICourier
-        {
-            void TakeOrder();
-            void FinishOrder();
-            void Info();
-        }
-
-        class CarCourier : ICourier
-        {
-            private int Speed = 40;
-            private int Capacity = 60;
-            private int Price = 50;
-
-            public void Info()
-            {
-                Console.WriteLine($"CarCourier speed is {Speed}km/h,available capacity is {Capacity}kg and price is {Price}UAH.");
-            }
-            public void TakeOrder()
-            {
-                Console.WriteLine("CarCourier took this order");
-            }
-            public void FinishOrder()
-            {
-                Console.WriteLine("CarCourier finished this order");
-            }
-        }
-
-        class PedastrianCourier : ICourier
-        {
-            private int Speed = 5;
-            private int Capacity = 15;
-            private int Price = 20;
-
-            public void Info()
-            {
-                Console.WriteLine($"PedastrianCourier speed is {Speed}km/h,available capacity is {Capacity}kg and price is {Price}UAH.");
-            }
-
-            public void TakeOrder()
-            {
-                Console.WriteLine("PedastrianCourier took this order");
-            }
-
-            public void FinishOrder()
-            {
-                Console.WriteLine("PedastrianCourier finished this order");
-            }
-        }
-
-        interface IMeneger
-        {
-            ICourier CreateCourier();
-        }
-
-        class CarMeneger : IMeneger
-        {
-            public ICourier CreateCourier()
-            {
-                return new CarCourier();
-            }
-        }
-
-        class PedMeneger : IMeneger
-        {
-            public ICourier CreateCourier()
-            {
-                return new PedastrianCourier();
-            }
-        }
+        
         static void Main(string[] args)
         {
-            // creating menegers
-            IMeneger car_men = new CarMeneger();
-            IMeneger ped_men = new PedMeneger();
 
+            Client close_client = new Client(new PedastrianMeneger());
+            Client far_client = new Client(new TransportMeneger());
 
-            ICourier car_courier1 = car_men.CreateCourier();
-            ICourier pedastrian_courier1 = ped_men.CreateCourier();
+            close_client.MakeOrder();
+            close_client.Pay();
 
-            car_courier1.Info();
-            car_courier1.TakeOrder();
-            car_courier1.FinishOrder();
-            
-            
-            pedastrian_courier1.Info();
-
+            far_client.MakeOrder();
+            far_client.Pay();
 
             Console.ReadLine();
         }
-
     }
+    abstract class Courier
+    {
+        public abstract void TakeOrder();
+        public abstract void FinishOrder();
+    }
+
+    class MotoCourier : Courier
+    {
+        public override void TakeOrder()
+        {
+            Console.WriteLine("MotoCourier took this order.");
+        }
+
+        public override void FinishOrder()
+        {
+            Console.WriteLine("MotoCourier finished his order.He is cleaning his Motocycle to be ready for the next order.");
+        }
+    }
+
+    class PedastrianCourier : Courier
+    {
+        public override void TakeOrder()
+        {
+            Console.WriteLine("PedastrianCourier took this order");
+        }
+
+        public override void FinishOrder()
+        {
+            Console.WriteLine("PedastrianCourier finished his order.He needs a rest to be ready for the next order.");
+        }
+    }
+
+    abstract class Meneger
+    {
+        public abstract Courier CreateCourier();
+    }
+
+    class PedastrianMeneger : Meneger
+    {
+        public override Courier CreateCourier()
+        {
+            return new PedastrianCourier();
+        }
+    }
+
+    class TransportMeneger : Meneger
+    {
+        public override Courier CreateCourier()
+        {
+            return new MotoCourier();
+        }
+    }
+
+    class Client
+    {
+        private Courier Courier;
+
+        public Client(Meneger meneger)
+        {
+            Courier = meneger.CreateCourier();          
+        }
+
+        public void MakeOrder()
+        {
+            Courier.TakeOrder();
+        }
+
+        public void Pay()
+        {
+            Courier.FinishOrder();
+        }
+    }
+
+   
 }
+
 
     
 
