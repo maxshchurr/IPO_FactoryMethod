@@ -8,17 +8,7 @@ namespace FactoryMethod
 {
     class Program
     {
-        /*   все виды курьеров
-        
-        enum CourierType
-        {
-            PedastrianCourier,
-            CarCourier
-        }
-
-    */
-
-        public interface ICourier
+        interface ICourier
         {
             void TakeOrder();
             void FinishOrder();
@@ -27,84 +17,89 @@ namespace FactoryMethod
 
         class CarCourier : ICourier
         {
-            public int speed = 45;
-            public int price = 50;
+            private int Speed = 40;
+            private int Capacity = 60;
+            private int Price = 50;
 
+            public void Info()
+            {
+                Console.WriteLine($"CarCourier speed is {Speed}km/h,available capacity is {Capacity}kg and price is {Price}UAH.");
+            }
             public void TakeOrder()
             {
                 Console.WriteLine("CarCourier took this order");
             }
-
             public void FinishOrder()
             {
                 Console.WriteLine("CarCourier finished this order");
             }
+        }
+
+        class PedastrianCourier : ICourier
+        {
+            private int Speed = 5;
+            private int Capacity = 15;
+            private int Price = 20;
 
             public void Info()
             {
-                Console.WriteLine($"CarCourier speed is {speed}km/h and price is {price}UAH");
+                Console.WriteLine($"PedastrianCourier speed is {Speed}km/h,available capacity is {Capacity}kg and price is {Price}UAH.");
             }
-        }
-        class PedastrianCourier : ICourier
-        { 
-            public int speed = 5;
-            public int price = 20;
-        
+
             public void TakeOrder()
             {
                 Console.WriteLine("PedastrianCourier took this order");
             }
+
             public void FinishOrder()
             {
                 Console.WriteLine("PedastrianCourier finished this order");
             }
-
-            public void Info()
-            {
-                Console.WriteLine($"PedastrianCourier speed is {speed}km/h and price is {price}UAH");
-            }
         }
 
-        interface ICourierMeneger
+        interface IMeneger
         {
-            
-            ICourier GetCourier();
-
+            ICourier CreateCourier();
         }
 
-        class CarCourierMeneger : ICourierMeneger
-        {       
-            public ICourier GetCourier()
+        class CarMeneger : IMeneger
+        {
+            public ICourier CreateCourier()
             {
                 return new CarCourier();
             }
         }
 
-        class PedCourierMeneger : ICourierMeneger
+        class PedMeneger : IMeneger
         {
-            public ICourier GetCourier()
+            public ICourier CreateCourier()
             {
                 return new PedastrianCourier();
             }
-
         }
-
-        // Client code
-
         static void Main(string[] args)
         {
-            
+            // creating menegers
+            IMeneger car_men = new CarMeneger();
+            IMeneger ped_men = new PedMeneger();
 
-            ICourierMeneger ped_meneger = new PedCourierMeneger();
-            ICourierMeneger car_meneger = new CarCourierMeneger();
-            ICourier c1 = car_meneger.GetCourier();
-            c1.Info();
-            c1.TakeOrder();
-            c1.FinishOrder();
+
+            ICourier car_courier1 = car_men.CreateCourier();
+            ICourier pedastrian_courier1 = ped_men.CreateCourier();
+
+            car_courier1.Info();
+            car_courier1.TakeOrder();
+            car_courier1.FinishOrder();
+            
+            
+            pedastrian_courier1.Info();
+
 
             Console.ReadLine();
         }
 
     }
-
 }
+
+    
+
